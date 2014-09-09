@@ -35,6 +35,7 @@
                                 </state>
                                 <connections>
                                     <action selector="likeButtonPressed:" destination="gTV-IL-0wX" eventType="touchUpInside" id="Epi-Ze-Bst"/>
+                                    <action selector="readArticleButtonPressed:" destination="gTV-IL-0wX" eventType="touchUpInside" id="265-xf-s6c"/>
                                 </connections>
                             </button>
                         </subviews>

@@ -11,13 +11,17 @@ import UIKit
 class YahooNewsItemCollectionViewCell: UICollectionViewCell {
     var mediaID : String?
     @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var usernameLabel: UILabel!
-    @IBOutlet weak var timeAgoLabel: UILabel!
-    @IBOutlet weak var likesCountLabel: UILabel!
-    @IBOutlet weak var likeButton: UIButton!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var publisherLabel: UILabel!
+    @IBOutlet weak var readArticleButton: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
+    
+    @IBAction func readArticleButtonPressed(sender: AnyObject) {
+        //segue to articleView
+    }
+    
 }

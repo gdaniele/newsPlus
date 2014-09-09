@@ -20,6 +20,7 @@
 		B3B9DBD519BD4941001D6AE8 /* YahooNewsItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B9DBD319BD4941001D6AE8 /* YahooNewsItemCollectionViewCell.swift */; };
 		B3B9DBD619BD4941001D6AE8 /* YahooNewsItemCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3B9DBD419BD4941001D6AE8 /* YahooNewsItemCollectionViewCell.xib */; };
 		B3B9DBDC19BD72A4001D6AE8 /* YahooNewsDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B9DBDB19BD72A4001D6AE8 /* YahooNewsDownloader.swift */; };
+		B3DBFBF019BF7C6B0099B4A9 /* NewsItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3DBFBEF19BF7C6B0099B4A9 /* NewsItemDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +51,7 @@
 		B3B9DBD319BD4941001D6AE8 /* YahooNewsItemCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YahooNewsItemCollectionViewCell.swift; sourceTree = "<group>"; };
 		B3B9DBD419BD4941001D6AE8 /* YahooNewsItemCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YahooNewsItemCollectionViewCell.xib; sourceTree = "<group>"; };
 		B3B9DBDB19BD72A4001D6AE8 /* YahooNewsDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YahooNewsDownloader.swift; sourceTree = "<group>"; };
+		B3DBFBEF19BF7C6B0099B4A9 /* NewsItemDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsItemDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +85,7 @@
 			isa = PBXGroup;
 			children = (
 				B3251B5D19B7CC7800CB2D60 /* NewsCollectionViewController.swift */,
+				B3DBFBEF19BF7C6B0099B4A9 /* NewsItemDetailViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -300,6 +303,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B3B9DBD519BD4941001D6AE8 /* YahooNewsItemCollectionViewCell.swift in Sources */,
+				B3DBFBF019BF7C6B0099B4A9 /* NewsItemDetailViewController.swift in Sources */,
 				B331CEF019BAB5410099F19E /* YahooAPIConstants.swift in Sources */,
 				B3303C0519A8228F006D6693 /* AppDelegate.swift in Sources */,
 				B3B9DBDC19BD72A4001D6AE8 /* YahooNewsDownloader.swift in Sources */,
