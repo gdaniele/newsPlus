@@ -15,6 +15,7 @@ class YahooNewsItem: NSObject {
     var fullImage : UIImage?
     var thumbnailLink : String?
     var originalLink : String?
+    var articleText : String?
 
     var uuid : String!
     
@@ -27,6 +28,9 @@ class YahooNewsItem: NSObject {
         }
         if let uuidString = json["uuid"].string {
             self.uuid = uuidString
+        }
+        if let textString = json["summary"].string {
+            self.articleText = textString
         }
         if let imagesArray : Array<JSONValue> = json["images"].array {
             for image in imagesArray {

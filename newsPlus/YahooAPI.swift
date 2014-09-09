@@ -22,7 +22,7 @@ class YahooApi: NSObject {
     
 //   MARK: Networking
     //gets newsfeed objects from yahoo. returns success once they are successfully saved
-    class func requestAndLoadYahooNewsfeed(success: () -> (), failure: () -> ()) {
+    func requestAndLoadYahooNewsfeed(success: ([YahooNewsItem]) -> (), failure: () -> ()) {
         var urlString : String! = "\(YahooAPIConstants().KYAHOO_NEWS_STREAM_URL)"
         var url : NSURL = NSURL(string: urlString)
         YahooApi().httpGetRequestWithCallback(url, success: { (json) -> () in
@@ -37,7 +37,7 @@ class YahooApi: NSObject {
     }
     
     //inflates a yahooNewsItem.
-    class func requestInflationForItems(newsItemIds : [String], success: (NSDictionary) -> (), failure: () -> ()) {
+    func requestInflationForItems(newsItemIds : [String], success: (NSDictionary) -> (), failure: () -> ()) {
         var allIdsString : String = String()
         for (index, idString) in enumerate(newsItemIds) {
             if index != newsItemIds.count - 1 {
@@ -103,7 +103,7 @@ class YahooApi: NSObject {
     }
     
 //    MARK: Utilities
-    func loadNewsItems(json : JSONValue, success : () -> ()) {
+    func loadNewsItems(json : JSONValue, success : ([YahooNewsItem]) -> ()) {
         println("got JSON")
         if let newsItemJsonArray : Array<JSONValue> = json["result"]["items"].array {
             for newsItemJson in newsItemJsonArray {
@@ -114,7 +114,7 @@ class YahooApi: NSObject {
             }
         }
         if yahooNewsItems.count > 0 {
-            success()
+            success(yahooNewsItems)
         }
     }
 }

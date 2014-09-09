@@ -9,11 +9,12 @@
 import UIKit
 
 class YahooNewsItemCollectionViewCell: UICollectionViewCell {
-    var mediaID : String?
+    var item : YahooNewsItem?
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var publisherLabel: UILabel!
     @IBOutlet weak var readArticleButton: UIButton!
+    var uuid: String!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -23,5 +24,4 @@ class YahooNewsItemCollectionViewCell: UICollectionViewCell {
     @IBAction func readArticleButtonPressed(sender: AnyObject) {
         //segue to articleView
     }
-    
 }

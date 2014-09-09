@@ -1,5 +1,5 @@
 //
-//  PhotoDownloader.swift
+//  YahooNewsDownloader
 //  newsPlus
 //
 //  Created by Giancarlo Daniele on 9/7/14.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PhotoDownloader: NSObject, NSURLSessionDownloadDelegate {
+class YahooNewsDownloader: NSObject, NSURLSessionDownloadDelegate {
     var newsItem : YahooNewsItem?
     var imageSession : NSURLSession?
     var imageDownload : NSURLSessionDownloadTask?

@@ -26,7 +26,7 @@
         <!--News Item Detail View Controller-->
         <scene sceneID="s5K-ly-8it">
             <objects>
-                <viewController id="qWY-hn-QEd" customClass="NewsItemDetailViewController" customModule="newsPlus" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="detailView" id="qWY-hn-QEd" customClass="NewsItemDetailViewController" customModule="newsPlus" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="H17-Lc-Da6"/>
                         <viewControllerLayoutGuide type="bottom" id="sGx-4r-a3n"/>

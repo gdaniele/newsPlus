@@ -22,8 +22,9 @@ class NewsCollectionViewController: UIViewController, UICollectionViewDelegateFl
     let activityIndicator : UIActivityIndicatorView! = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray) //for loading UIWebView
     var stateStatusView : UIView! // UIView overlay that communicates state messages to user
     var navBar : UINavigationBar!
-    var imageDownloadsInProgress = Dictionary<NSIndexPath, PhotoDownloader>() // Mutable data structure of images currently being downloaded. We are lazy loading!
-    
+    var imageDownloadsInProgress = Dictionary<NSIndexPath, YahooNewsDownloader>() // Mutable data structure of images currently being downloaded. We are lazy loading!
+    var yahooNewsItems : [YahooNewsItem] = [YahooNewsItem]() // Mutable data structure supporting uicollectionvioew
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -61,8 +62,9 @@ class NewsCollectionViewController: UIViewController, UICollectionViewDelegateFl
     }
     
     override func viewWillAppear(animated: Bool) {
-        YahooApi.requestAndLoadYahooNewsfeed({ () -> () in
-            //
+        api.requestAndLoadYahooNewsfeed({ (newsItems) -> () in
+            self.yahooNewsItems = newsItems as [YahooNewsItem]
+            self.yahooNewsItemsLoaded()
         }, failure: { () -> () in
             //
         })
@@ -97,59 +99,49 @@ class NewsCollectionViewController: UIViewController, UICollectionViewDelegateFl
 
     // MARK: UICollectionViewDataSource
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        if let location = self.locationOnDisplay as YahooNewsItem? {
-//            return location.recentPhotos.count
-//        }
-        return 0
+        return yahooNewsItems.count
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         var screenSize = UIScreen.mainScreen().bounds.size
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as YahooNewsItemCollectionViewCell
         
-//        Load the photo for this cell
-//        if let location = self.locationOnDisplay {
-//            if location.recentPhotos.count >= indexPath.row {
-//                var photo : YahooNewsItem = location.recentPhotos[indexPath.row]
-//                if let likesCount : Int = photo.likeCount {
-//                    cell.likesCountLabel.text = String(likesCount) + " likes"
-//                } else {
-//                    cell.likesCountLabel.text = ""
-//                }
-//                if let id : String = photo.id {
-//                    cell.mediaID = id
-//                } else {
-//                    println("ERROR: cell without mediaID")
-//                }
-//                if let username : String = photo.user?.username {
-//                    cell.usernameLabel.text = username
-//                } else {
-//                    cell.usernameLabel.text = ""
-//                }
-//                if let createdAt : NSDate = photo.createdAt {
-//                    var formatter : NSDateFormatter = NSDateFormatter()
-//                    formatter.dateFormat = "MM/dd/yyyy"
-//                    cell.timeAgoLabel.text = formatter.stringFromDate(createdAt)
-//                } else {
-//                    cell.usernameLabel.text = ""
-//                }
-//                if (photo.image == nil) {
-//                    // Dispatch operation to download the image
-//                    if self.collectionView?.dragging == false && self.collectionView?.decelerating == false
-//                    {
-//                        startPhotoDownload(photo, indexPath: indexPath)
-//                    }
-//                    if let imageView = cell.viewWithTag(kImageViewTag) as? UIImageView {
-//                        imageView.image = UIImage(named: "placeholder")
-//                    }
-//                } else {
-//                    if let imageView = cell.viewWithTag(kImageViewTag) as? UIImageView {
-//                        imageView.image = photo.image
-//                    }
-//                }
-//
-//            }
-//        }
+//        Load the newsItem for this cell
+        if yahooNewsItems.count >= indexPath.row {
+            var item : YahooNewsItem = yahooNewsItems[indexPath.row]
+            cell.item = item
+            if let uuid : String = item.uuid {
+                cell.uuid = uuid
+            } else {
+                println("ERROR: cell without uuid")
+            }
+            if let publisherString : String = item.publisher {
+                cell.publisherLabel.text = publisherString
+            } else {
+                cell.publisherLabel.text = ""
+            }
+            if let titleString : String = item.title {
+                cell.titleLabel.text = titleString
+            } else {
+                cell.titleLabel.text = ""
+            }
+            
+            if (item.thumbnailImage == nil) {
+                // Dispatch operation to download the image
+                if self.collectionView?.dragging == false && self.collectionView?.decelerating == false
+                {
+                    startPhotoDownload(item, indexPath: indexPath)
+                }
+                if let imageView = cell.viewWithTag(kImageViewTag) as? UIImageView {
+                    imageView.image = UIImage(named: "placeholder")
+                }
+            } else {
+                if let imageView = cell.viewWithTag(kImageViewTag) as? UIImageView {
+                    imageView.image = item.thumbnailImage
+                }
+            }
+
+        }
         return cell
     }
     
@@ -158,7 +150,7 @@ class NewsCollectionViewController: UIViewController, UICollectionViewDelegateFl
         var downloader = self.imageDownloadsInProgress[indexPath]
         
         if (downloader == nil) {
-            downloader = PhotoDownloader()
+            downloader = YahooNewsDownloader()
             downloader?.newsItem = newsItem
             self.imageDownloadsInProgress[indexPath] = downloader
             downloader!.completion = {
@@ -174,16 +166,17 @@ class NewsCollectionViewController: UIViewController, UICollectionViewDelegateFl
     // This method is used in case the user scrolled into a set of cells that don't
     //  have their app icons yet.
     func loadImagesForOnscreenRows() {
-//        if self.locationOnDisplay?.recentPhotos.count > 0  {
-//            var visiblePaths = self.collectionView!.indexPathsForVisibleItems() as [NSIndexPath]
-//            for path in visiblePaths {
-//                if let photo = self.locationOnDisplay?.recentPhotos[path.row] {
-//                    if (photo.image == nil) {
-//                        startPhotoDownload(photo, indexPath: path)
-//                    }
-//                }
-//            }
-//        }
+        var item = self.yahooNewsItems[2]
+        if self.yahooNewsItems.count > 0  {
+            var visiblePaths = self.collectionView!.indexPathsForVisibleItems() as [NSIndexPath]
+            for path in visiblePaths {
+                var index : Int = path.row
+                var item = self.yahooNewsItems[index]
+                if (item.thumbnailImage == nil) {
+                    startPhotoDownload(item, indexPath: path)
+                }
+            }
+        }
     }
     
     func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
@@ -201,41 +194,24 @@ class NewsCollectionViewController: UIViewController, UICollectionViewDelegateFl
         self.addObserver(api, forKeyPath: "accessToken", options: NSKeyValueObservingOptions.New, context: nil)
         self.addObserver(api, forKeyPath: "bestEffortAtLocation", options: NSKeyValueObservingOptions.New, context: nil)
         self.addObserver(self, forKeyPath: "currentLocation", options: NSKeyValueObservingOptions.New, context: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "yahooNewsItemsLoaded:", name: "loadedYahooNewsItems", object: nil)
     }
     
     func removeObservers() {
         self.removeObserver(api, forKeyPath: "accessToken")
         self.removeObserver(api, forKeyPath: "bestEffortAtLocation")
         self.removeObserver(self, forKeyPath: "currentLocation")
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: "loadedYahooNewsItems", object: nil)
     }
     
-//    Incoming NSNotification that informs the view that the Yahoo API found locations with our given CLLocation
-    func yahooNewsItemsLoaded(notification: NSNotification){
+    func yahooNewsItemsLoaded() {
         println("DEBUG: Downloaded YahooNewsItem objects")
-        loadYahooNewsItemsToView(api.yahooNewsItems)
-    }
-    
-//    Loads the given Yahoo Location to the view
-    func loadYahooNewsItemsToView(newsItems : [YahooNewsItem]) {
-        // Set the current location
-//        self.locationOnDisplay = location
-//
-//        // Dispatch a thread to download & parse metadata for photos at given location
-//        location.downloadAndSaveRecentPhotos({ () -> () in
-//            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-//                // On the main queue, reload the UICollectionView
-//                if self.locationOnDisplay?.recentPhotos.count < 1 {
-//                    self.navSingleTap()
-//                } else {
-//                    self.navBar.topItem?.title = self.locationOnDisplay?.name
-//                    self.collectionView?.reloadData()
-//                }
-//            })
-//        }, failure: { () -> () in
-//            
-//        })
+        if self.yahooNewsItems.count > 0 {
+            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                if self.yahooNewsItems.count > 0 {
+                    self.navBar.topItem?.title = "Recent News"
+                    self.collectionView?.reloadData()
+                }
+            })
+        }
     }
     
 //    Toggles stateStatusView
