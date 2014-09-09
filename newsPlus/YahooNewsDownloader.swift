@@ -9,14 +9,14 @@
 import UIKit
 
 class PhotoDownloader: NSObject, NSURLSessionDownloadDelegate {
-    var photo : YahooNewsItem?
+    var newsItem : YahooNewsItem?
     var imageSession : NSURLSession?
     var imageDownload : NSURLSessionDownloadTask?
     var completion: (() -> ())?
     
     func startDownload() {
         if let imageSession : NSURLSession = self.imageSession {
-            self.imageDownload = imageSession.downloadTaskWithURL(NSURL(string: photo!.linkStandardRes!))
+            self.imageDownload = imageSession.downloadTaskWithURL(NSURL(string: newsItem!.imageLink!))
             self.imageDownload?.resume()
         } else {
             self.imageSession = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration(), delegate : self, delegateQueue: nil)
@@ -34,15 +34,15 @@ class PhotoDownloader: NSObject, NSURLSessionDownloadDelegate {
         
         if (Float(image.size.width) != YahooAPIConstants().cellWidth || Float(image.size.height) != YahooAPIConstants().cellWidth)
         {
-            var photoDimension = CGFloat(YahooAPIConstants().cellWidth)
-            var itemSize = CGSizeMake(photoDimension, photoDimension)
+            var newsItemDimension = CGFloat(YahooAPIConstants().cellWidth)
+            var itemSize = CGSizeMake(newsItemDimension, newsItemDimension)
             UIGraphicsBeginImageContextWithOptions(itemSize, false, 0.0)
             var imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height)
             image.drawInRect(imageRect)
-            self.photo?.image = UIGraphicsGetImageFromCurrentImageContext()
+            self.newsItem?.thumbnailImage = UIGraphicsGetImageFromCurrentImageContext()
             UIGraphicsEndImageContext();
         } else {
-            self.photo?.image = image;
+            self.newsItem?.thumbnailImage = image;
         }
         // Release the connection now that it's finished
         self.imageSession = nil;

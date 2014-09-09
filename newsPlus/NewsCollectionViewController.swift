@@ -1,5 +1,5 @@
 //
-//  NearbyCollectionViewController.swift
+//  NewsCollectionViewController.swift
 //  newsPlus
 //
 //  Created by Giancarlo Daniele on 9/3/14.
@@ -11,7 +11,7 @@ import CoreLocation
 
 let reuseIdentifier = "newsCell"
 
-class NearbyCollectionViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UINavigationBarDelegate {
+class NewsCollectionViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UINavigationBarDelegate {
     var collectionView: UICollectionView?
     let kImageViewTag : Int = 11 //the imageView for the collectionViewCell is tagged with 11 in IB
     let kHeaderViewTag : Int = 33 //the header for the collectionViewCell is tagged with 33 in IB
@@ -50,7 +50,7 @@ class NearbyCollectionViewController: UIViewController, UICollectionViewDelegate
         navBar.delegate = self
         
         //navbar titles and location swapping
-        var item = UINavigationItem(title: "Loading Nearby Photos..")
+        var item = UINavigationItem(title: "Loading News from Yahoo!..")
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
             item.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Camera, target: self, action: "loadCamera")
         }
@@ -159,16 +159,16 @@ class NearbyCollectionViewController: UIViewController, UICollectionViewDelegate
     }
     
     // Starts PhotoDownload for Photo at index
-    func startPhotoDownload(photo : YahooNewsItem, indexPath : NSIndexPath) {
+    func startPhotoDownload(newsItem : YahooNewsItem, indexPath : NSIndexPath) {
         var downloader = self.imageDownloadsInProgress[indexPath]
         
         if (downloader == nil) {
             downloader = PhotoDownloader()
-            downloader?.photo = photo
+            downloader?.newsItem = newsItem
             self.imageDownloadsInProgress[indexPath] = downloader
             downloader!.completion = {
                 if let cell : YahooNewsItemCollectionViewCell = self.collectionView?.cellForItemAtIndexPath(indexPath) as? YahooNewsItemCollectionViewCell {
-                    cell.imageView.image = photo.image
+                    cell.imageView.image = newsItem.thumbnailImage
                     self.imageDownloadsInProgress.removeValueForKey(indexPath)
                 }
             }

@@ -16,11 +16,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication!, didFinishLaunchingWithOptions launchOptions: NSDictionary!) -> Bool {
         // Override point for customization after application launch.
-        var manager = CLLocationManager()
-        if !CLLocationManager.locationServicesEnabled() && CLLocationManager.authorizationStatus() == CLAuthorizationStatus.Denied {
-            var servicesDisabledAlert : UIAlertView = UIAlertView(title: "Location Services Disabled", message: "Please enable location services to let newsPlus show you photos taken nearby.", delegate: nil, cancelButtonTitle: "OK")
-            servicesDisabledAlert.show()
-        }
+        var storyboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+        storyboard.instantiateViewControllerWithIdentifier("newsCollectionView")
+//        self.window?.rootViewController?.presentViewController(NewsCollectionViewController(), animated: true, completion: nil)
+//        self.window?.makeKeyAndVisible()
         return true
     }
 

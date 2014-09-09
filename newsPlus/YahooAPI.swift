@@ -46,15 +46,15 @@ class YahooApi: NSObject {
     
     //inflates a yahooNewsItem.
     class func requestInflationForItems(newsItemIds : [String], success: (NSDictionary) -> (), failure: () -> ()) {
-        var uuids : String
+        var allIdsString : String = String()
         for (index, idString) in enumerate(newsItemIds) {
             if index != newsItemIds.count - 1 {
-                uuids = uuids + idString + ","
+                allIdsString = allIdsString + idString + ","
             } else {
-                uuids = uuids + idString
+                allIdsString = allIdsString + idString
             }
         }
-        var urlString : String! = "\(YahooAPIConstants().KYAHOO_NEWS_STREAM_INFLATION_URL)\(uuids)"
+        var urlString : String! = "\(YahooAPIConstants().KYAHOO_NEWS_STREAM_INFLATION_URL)\(allIdsString)"
         var url : NSURL = NSURL(string: urlString)
         YahooApi().httpGetRequestWithCallback(url, success: { (json) -> () in
             //

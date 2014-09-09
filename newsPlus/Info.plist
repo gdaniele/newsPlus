@@ -28,10 +28,6 @@
 	<array>
 		<string>armv7</string>
 	</array>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>newsPlus uses your location when you&apos;re in the app to show you nearby photos.</string>
-	<key>NSLocationUsageDescription</key>
-	<string>newsPlus uses your location when you&apos;re in the app to show you nearby photos.</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
