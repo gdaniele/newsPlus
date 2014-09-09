@@ -9,54 +9,26 @@
 import UIKit
 
 class YahooNewsItem: NSObject {
-    var caption : String?
-    var likeCount : Int?
-    var createdAt : NSDate?
-    
-    var id : String!
-    
-    var linkLowRes : String! = nil
-    var linkStandardRes : String! = nil
-    var link : String! = nil
-    var type : String! = nil
+    var title : String?
+    var publisher : String?
+    var thumbnailImage : UIImage?
+    var fullImage : UIImage?
+    var imageLink : String?
 
-    var image : UIImage? = nil
+    var uudid : String!
     
     init(fromDictionary json : JSONValue) {
-        if let typeString = json["type"].string {
-            self.type = typeString
+        if let titleString = json["title"].string {
+            self.title = titleString
         }
-        if let linkString = json["link"].string {
-            self.link = linkString
+        if let publisherString = json["publisher"].string {
+            self.publisher = publisherString
         }
-        if let likesObject = json["likes"].object {
-            if let likesCount = likesObject["count"]?.number {
-                self.likeCount = likesCount
-            }
-            if let likesCountString = likesObject["count"]?.string {
-                self.likeCount = likesCountString.toInt()
-            }
+        if let imageLinkString = json["_original_image"].string {
+            self.imageLink = imageLinkString
         }
-        if let createdTimeString = json["created_time"].string {
-            self.createdAt = NSDate(timeIntervalSince1970:(createdTimeString as NSString).doubleValue)
-        } else {
-            if let timeNumber = json["created_time"].number {
-                self.createdAt = NSDate(timeIntervalSince1970:timeNumber)
-            }
-        }
-        if let captionObject = json["caption"].object {
-            if let captionString = captionObject["text"]?.string {
-                self.caption = captionString
-            }
-        }
-        if let idString = json["id"].string {
-            self.id = idString
-        }
-        if let lowResString = json["images"]["low_resolution"]["url"].string {
-            self.linkLowRes = lowResString
-        }
-        if let standardResString = json["images"]["standard_resolution"]["url"].string {
-            self.linkStandardRes = standardResString
+        if let uudidString = json["uudid"].string {
+            self.uudid = uudidString
         }
     }
 }
