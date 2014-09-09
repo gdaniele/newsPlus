@@ -13,9 +13,10 @@ class YahooNewsItem: NSObject {
     var publisher : String?
     var thumbnailImage : UIImage?
     var fullImage : UIImage?
-    var imageLink : String?
+    var thumbnailLink : String?
+    var originalLink : String?
 
-    var uudid : String!
+    var uuid : String!
     
     init(fromDictionary json : JSONValue) {
         if let titleString = json["title"].string {
@@ -24,11 +25,28 @@ class YahooNewsItem: NSObject {
         if let publisherString = json["publisher"].string {
             self.publisher = publisherString
         }
-        if let imageLinkString = json["_original_image"].string {
-            self.imageLink = imageLinkString
+        if let uuidString = json["uuid"].string {
+            self.uuid = uuidString
         }
-        if let uudidString = json["uudid"].string {
-            self.uudid = uudidString
+        if let imagesArray : Array<JSONValue> = json["images"].array {
+            for image in imagesArray {
+                if let tagsForImage : Array<JSONValue> = image["tags"].array {
+                    for tag in tagsForImage {
+                        if let tag = tag.string {
+                            if tag == "size=original" {
+                                if let imageLink : String = image["url"].string {
+                                    self.originalLink = imageLink
+                                }
+                            }
+                            if tag == "ios:size=square_large" {
+                                if let imageLink : String = image["url"].string {
+                                    self.thumbnailLink = imageLink
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

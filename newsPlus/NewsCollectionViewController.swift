@@ -51,16 +51,8 @@ class NewsCollectionViewController: UIViewController, UICollectionViewDelegateFl
         
         //navbar titles and location swapping
         var item = UINavigationItem(title: "Loading News from Yahoo!..")
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
-            item.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Camera, target: self, action: "loadCamera")
-        }
         navBar.pushNavigationItem(item, animated: true)
-        var navSingleTap = UITapGestureRecognizer(target: self, action: "navSingleTap")
-        navSingleTap.numberOfTapsRequired = 1
-        (navBar.subviews[1] as UIView).userInteractionEnabled = true
-        (navBar.subviews[1] as UIView).addGestureRecognizer(navSingleTap)
         navBar.tag = kNavbarTag
-        
         self.view.addSubview(navBar)
     }
     
@@ -69,8 +61,11 @@ class NewsCollectionViewController: UIViewController, UICollectionViewDelegateFl
     }
     
     override func viewWillAppear(animated: Bool) {
-//        getLocation()
-//        refreshAccessToken()
+        YahooApi.requestAndLoadYahooNewsfeed({ () -> () in
+            //
+        }, failure: { () -> () in
+            //
+        })
     }
 
     override func didReceiveMemoryWarning() {

@@ -22,22 +22,14 @@ class YahooApi: NSObject {
     
 //   MARK: Networking
     //gets newsfeed objects from yahoo. returns success once they are successfully saved
-    class func requestYahooNewsfeed(location : CLLocation, success: () -> (), failure: () -> ()) {
+    class func requestAndLoadYahooNewsfeed(success: () -> (), failure: () -> ()) {
         var urlString : String! = "\(YahooAPIConstants().KYAHOO_NEWS_STREAM_URL)"
         var url : NSURL = NSURL(string: urlString)
         YahooApi().httpGetRequestWithCallback(url, success: { (json) -> () in
             var newsItemsJson : JSONValue = JSONValue(json)
             var backgroundQueue = NSOperationQueue()
             backgroundQueue.addOperationWithBlock({ () -> Void in
-                //loads newsItemsJson to memory
-//                for newsItemJsonData in newsItems {
-//                    var newsItem : YahooNewsItem = YahooNewsItem(fromDictionary: JSONValue(newsItemJsonData))
-//                    yahooNewsItems.addObject(newsItem)
-//                }
-//                if newsItems.count > 0 {
-//                    success()
-//                }
-                println("got json")
+                YahooApi().loadNewsItems(newsItemsJson, success: success)
             })
         }) { () -> () in
             failure()
@@ -108,5 +100,21 @@ class YahooApi: NSObject {
             }
             self.delegate.setNetworkActivityIndicatorVisible(false)
         }).resume()
+    }
+    
+//    MARK: Utilities
+    func loadNewsItems(json : JSONValue, success : () -> ()) {
+        println("got JSON")
+        if let newsItemJsonArray : Array<JSONValue> = json["result"]["items"].array {
+            for newsItemJson in newsItemJsonArray {
+                var newsItem : YahooNewsItem? = YahooNewsItem(fromDictionary: newsItemJson)
+                if let item : YahooNewsItem = newsItem {
+                    yahooNewsItems.append(item)
+                }
+            }
+        }
+        if yahooNewsItems.count > 0 {
+            success()
+        }
     }
 }
