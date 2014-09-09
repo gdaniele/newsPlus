@@ -24,6 +24,8 @@ class NewsCollectionViewController: UIViewController, UICollectionViewDelegateFl
     var navBar : UINavigationBar!
     var imageDownloadsInProgress = Dictionary<NSIndexPath, YahooNewsDownloader>() // Mutable data structure of images currently being downloaded. We are lazy loading!
     var yahooNewsItems : [YahooNewsItem] = [YahooNewsItem]() // Mutable data structure supporting uicollectionvioew
+    
+    var refreshControl : UIRefreshControl! = UIRefreshControl()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,6 +57,10 @@ class NewsCollectionViewController: UIViewController, UICollectionViewDelegateFl
         navBar.pushNavigationItem(item, animated: true)
         navBar.tag = kNavbarTag
         self.view.addSubview(navBar)
+        self.collectionView?.alwaysBounceVertical = true
+        
+        refreshControl.addTarget(self, action: "refresh", forControlEvents: UIControlEvents.ValueChanged)
+        self.collectionView?.addSubview(refreshControl)
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -85,6 +91,12 @@ class NewsCollectionViewController: UIViewController, UICollectionViewDelegateFl
         super.viewDidAppear(animated)
         self.collectionView?.contentInset = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
         self.collectionView?.reloadData()
+    }
+    
+    func refresh() {
+        println("Refreshing feed...")
+        refreshControl.removeFromSuperview()
+
     }
 
     /*
@@ -187,6 +199,21 @@ class NewsCollectionViewController: UIViewController, UICollectionViewDelegateFl
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         self.loadImagesForOnscreenRows()
+        
+        // Calculate where the collection view should be at the right-hand end item
+        var height : CGFloat? = self.collectionView?.frame.size.height
+        if let h : CGFloat = height {
+            var contentOffsetWhenFullyScrolledDown = CGFloat(h) * CGFloat(self.yahooNewsItems.count - 1)
+            
+            if scrollView.contentOffset.y == CGFloat(contentOffsetWhenFullyScrolledDown) {
+                var newIndexPath = NSIndexPath(forItem: 1, inSection: 0)
+                self.collectionView?.scrollToItemAtIndexPath(newIndexPath, atScrollPosition: UICollectionViewScrollPosition.Bottom, animated: false)
+            } else if scrollView.contentOffset.y == 0 {
+                var newIndexPath = NSIndexPath(forItem: self.yahooNewsItems.count - 2, inSection: 0)
+                self.collectionView?.scrollToItemAtIndexPath(newIndexPath, atScrollPosition: UICollectionViewScrollPosition.Bottom, animated: false)
+            }
+        }
+
     }
     
     //    MARK: Utilities

@@ -23,5 +23,6 @@ class YahooNewsItemCollectionViewCell: UICollectionViewCell {
     
     @IBAction func readArticleButtonPressed(sender: AnyObject) {
         //segue to articleView
+        println("hi from pressed!")
     }
 }
