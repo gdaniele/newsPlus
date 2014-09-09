@@ -16,7 +16,7 @@ class YahooNewsDownloader: NSObject, NSURLSessionDownloadDelegate {
     
     func startDownload() {
         if let imageSession : NSURLSession = self.imageSession {
-            self.imageDownload = imageSession.downloadTaskWithURL(NSURL(string: newsItem!.thumbnailLink!))
+            self.imageDownload = imageSession.downloadTaskWithURL(NSURL(string: newsItem!.originalLink!))
             self.imageDownload?.resume()
         } else {
             self.imageSession = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration(), delegate : self, delegateQueue: nil)
@@ -39,10 +39,10 @@ class YahooNewsDownloader: NSObject, NSURLSessionDownloadDelegate {
             UIGraphicsBeginImageContextWithOptions(itemSize, false, 0.0)
             var imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height)
             image.drawInRect(imageRect)
-            self.newsItem?.thumbnailImage = UIGraphicsGetImageFromCurrentImageContext()
+            self.newsItem?.fullImage = UIGraphicsGetImageFromCurrentImageContext()
             UIGraphicsEndImageContext();
         } else {
-            self.newsItem?.thumbnailImage = image;
+            self.newsItem?.fullImage = image;
         }
         // Release the connection now that it's finished
         self.imageSession = nil;

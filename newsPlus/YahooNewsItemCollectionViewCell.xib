@@ -12,43 +12,32 @@
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                 <rect key="frame" x="0.0" y="0.0" width="442" height="412"/>
                 <subviews>
-                    <view tag="22" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b4n-aO-ZWY" userLabel="Footer View">
+                    <view tag="22" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b4n-aO-ZWY" userLabel="Footer View">
                         <rect key="frame" x="0.0" y="385" width="442" height="27"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Publisher" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eWb-j8-Rsj">
-                                <rect key="frame" x="0.0" y="3" width="254" height="26"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="66" id="6m5-KH-nAc"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
-                                <color key="textColor" red="0.39363440690000001" green="0.39363440690000001" blue="0.39363440690000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Publisher" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PWo-tU-Iaf">
+                                <rect key="frame" x="8" y="3" width="72" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q7b-Gl-3nW">
-                                <rect key="frame" x="349" y="-1" width="93" height="30"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="15"/>
-                                <state key="normal" title="Read Article">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4kt-y4-fFu">
+                                <rect key="frame" x="396" y="-2" width="36" height="30"/>
+                                <state key="normal" title="Read">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="readArticleButtonPressed:" destination="gTV-IL-0wX" eventType="touchUpInside" id="265-xf-s6c"/>
+                                    <action selector="readArticleButtonPressed:" destination="gTV-IL-0wX" eventType="touchUpInside" id="VTx-YC-UZF"/>
                                 </connections>
                             </button>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="eWb-j8-Rsj" firstAttribute="leading" secondItem="b4n-aO-ZWY" secondAttribute="leading" id="6FX-i8-O9j"/>
-                            <constraint firstItem="eWb-j8-Rsj" firstAttribute="top" secondItem="b4n-aO-ZWY" secondAttribute="top" constant="3" id="7uc-rD-njM"/>
-                            <constraint firstAttribute="centerY" secondItem="eWb-j8-Rsj" secondAttribute="centerY" id="9cg-gG-AP7"/>
-                            <constraint firstItem="q7b-Gl-3nW" firstAttribute="leading" secondItem="eWb-j8-Rsj" secondAttribute="trailing" constant="95" id="BEx-4c-Quv"/>
-                            <constraint firstAttribute="bottom" secondItem="q7b-Gl-3nW" secondAttribute="bottom" id="De9-3i-WTp"/>
-                            <constraint firstAttribute="centerX" secondItem="eWb-j8-Rsj" secondAttribute="centerX" id="J76-Js-GSX"/>
-                            <constraint firstAttribute="trailing" secondItem="q7b-Gl-3nW" secondAttribute="trailing" constant="5" id="Mu5-sr-hFa"/>
-                            <constraint firstItem="q7b-Gl-3nW" firstAttribute="centerY" secondItem="b4n-aO-ZWY" secondAttribute="centerY" id="NOg-Hc-yO6"/>
-                            <constraint firstAttribute="bottom" secondItem="eWb-j8-Rsj" secondAttribute="bottom" id="Sn7-pt-JlD"/>
-                            <constraint firstItem="q7b-Gl-3nW" firstAttribute="leading" secondItem="eWb-j8-Rsj" secondAttribute="trailing" constant="10" id="ahd-2B-ata"/>
-                            <constraint firstAttribute="centerY" secondItem="q7b-Gl-3nW" secondAttribute="centerY" id="dny-VL-EKO"/>
-                            <constraint firstItem="q7b-Gl-3nW" firstAttribute="top" secondItem="b4n-aO-ZWY" secondAttribute="top" constant="-1" id="pZo-hd-meU"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="q7b-Gl-3nW" secondAttribute="trailing" id="tMV-gw-Pmn"/>
+                            <constraint firstAttribute="trailing" secondItem="4kt-y4-fFu" secondAttribute="trailing" id="29t-Td-EkO"/>
+                            <constraint firstItem="4kt-y4-fFu" firstAttribute="leading" secondItem="PWo-tU-Iaf" secondAttribute="trailing" id="4Gl-TV-ame"/>
+                            <constraint firstAttribute="bottom" secondItem="PWo-tU-Iaf" secondAttribute="bottom" id="7oV-GZ-wbg"/>
+                            <constraint firstAttribute="bottom" secondItem="4kt-y4-fFu" secondAttribute="bottom" id="P0w-H6-e7U"/>
+                            <constraint firstItem="PWo-tU-Iaf" firstAttribute="leading" secondItem="b4n-aO-ZWY" secondAttribute="leading" id="VuA-Jw-h5v"/>
+                            <constraint firstItem="4kt-y4-fFu" firstAttribute="bottom" secondItem="PWo-tU-Iaf" secondAttribute="bottom" id="Xx7-Dm-i2o"/>
                         </constraints>
                     </view>
                     <view tag="33" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RWa-dG-ATr" userLabel="Header View">
@@ -91,7 +80,6 @@
                 <constraint firstAttribute="centerY" secondItem="b4n-aO-ZWY" secondAttribute="centerY" id="LUy-Ni-MJW"/>
                 <constraint firstItem="6Sq-GJ-Of0" firstAttribute="bottom" secondItem="2WM-pR-SBW" secondAttribute="top" id="NT8-Kv-h2c"/>
                 <constraint firstAttribute="centerX" secondItem="RWa-dG-ATr" secondAttribute="centerX" id="Oie-8C-2k1"/>
-                <constraint firstItem="2WM-pR-SBW" firstAttribute="bottom" secondItem="q7b-Gl-3nW" secondAttribute="top" id="Ubz-Y9-64m"/>
                 <constraint firstAttribute="centerY" secondItem="b4n-aO-ZWY" secondAttribute="centerY" id="Uvs-Ya-TF7"/>
                 <constraint firstItem="RWa-dG-ATr" firstAttribute="bottom" secondItem="2WM-pR-SBW" secondAttribute="top" id="V3l-3a-8bv"/>
                 <constraint firstAttribute="centerX" secondItem="b4n-aO-ZWY" secondAttribute="centerX" id="XaD-zp-NSf"/>
@@ -115,8 +103,8 @@
             </variation>
             <connections>
                 <outlet property="imageView" destination="2WM-pR-SBW" id="hZg-tt-tDh"/>
-                <outlet property="publisherLabel" destination="eWb-j8-Rsj" id="TIE-ni-mpv"/>
-                <outlet property="readArticleButton" destination="q7b-Gl-3nW" id="Oe9-FR-CjG"/>
+                <outlet property="publisherLabel" destination="PWo-tU-Iaf" id="4Mc-ph-2X5"/>
+                <outlet property="readArticleButton" destination="4kt-y4-fFu" id="oVp-Ox-zxr"/>
                 <outlet property="titleLabel" destination="6Sq-GJ-Of0" id="GVy-EH-Of3"/>
             </connections>
             <point key="canvasLocation" x="269" y="83"/>

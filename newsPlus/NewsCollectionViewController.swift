@@ -126,7 +126,7 @@ class NewsCollectionViewController: UIViewController, UICollectionViewDelegateFl
                 cell.titleLabel.text = ""
             }
             
-            if (item.thumbnailImage == nil) {
+            if (item.fullImage == nil) {
                 // Dispatch operation to download the image
                 if self.collectionView?.dragging == false && self.collectionView?.decelerating == false
                 {
@@ -137,7 +137,7 @@ class NewsCollectionViewController: UIViewController, UICollectionViewDelegateFl
                 }
             } else {
                 if let imageView = cell.viewWithTag(kImageViewTag) as? UIImageView {
-                    imageView.image = item.thumbnailImage
+                    imageView.image = item.fullImage
                 }
             }
 
@@ -155,7 +155,7 @@ class NewsCollectionViewController: UIViewController, UICollectionViewDelegateFl
             self.imageDownloadsInProgress[indexPath] = downloader
             downloader!.completion = {
                 if let cell : YahooNewsItemCollectionViewCell = self.collectionView?.cellForItemAtIndexPath(indexPath) as? YahooNewsItemCollectionViewCell {
-                    cell.imageView.image = newsItem.thumbnailImage
+                    cell.imageView.image = newsItem.fullImage
                     self.imageDownloadsInProgress.removeValueForKey(indexPath)
                 }
             }
@@ -172,7 +172,7 @@ class NewsCollectionViewController: UIViewController, UICollectionViewDelegateFl
             for path in visiblePaths {
                 var index : Int = path.row
                 var item = self.yahooNewsItems[index]
-                if (item.thumbnailImage == nil) {
+                if (item.fullImage == nil) {
                     startPhotoDownload(item, indexPath: path)
                 }
             }

@@ -10,14 +10,14 @@
 	<string>newsPlus</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>737516769374ABA0EA12983BB0AF5E404E760F4D</key>
+		<key>2C18F6DBC907246470DA6E39215773E7C458B156</key>
 		<string>github.com:gdaniele/fotoPlus.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>newsPlus.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>737516769374ABA0EA12983BB0AF5E404E760F4D</key>
+		<key>2C18F6DBC907246470DA6E39215773E7C458B156</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
@@ -25,14 +25,14 @@
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>737516769374ABA0EA12983BB0AF5E404E760F4D</string>
+	<string>2C18F6DBC907246470DA6E39215773E7C458B156</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>737516769374ABA0EA12983BB0AF5E404E760F4D</string>
+			<string>2C18F6DBC907246470DA6E39215773E7C458B156</string>
 			<key>IDESourceControlWCCName</key>
 			<string>newsPlus</string>
 		</dict>
